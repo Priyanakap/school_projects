@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic Tac Toe</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial;
+        }
+
+        table {
+            margin: auto;
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 80px;
+            height: 80px;
+            border: 2px solid black;
+            font-size: 40px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 8px 15px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Tic Tac Toe Game</h2>
+
+<table>
+    <tr>
+        <td onclick="play(this)"></td>
+        <td onclick="play(this)"></td>
+        <td onclick="play(this)"></td>
+    </tr>
+    <tr>
+        <td onclick="play(this)"></td>
+        <td onclick="play(this)"></td>
+        <td onclick="play(this)"></td>
+    </tr>
+    <tr>
+        <td onclick="play(this)"></td>
+        <td onclick="play(this)"></td>
+        <td onclick="play(this)"></td>
+    </tr>
+</table>
+
+<h3 id="result"></h3>
+
+<button onclick="resetGame()">Restart</button>
+
+<script>
+    let turn = "X";
+
+    function play(cell) {
+        if (cell.innerHTML == "") {
+            cell.innerHTML = turn;
+            checkWinner();
+            turn = (turn == "X") ? "O" : "X";
+        }
+    }
+
+    function checkWinner() {
+        let cells = document.getElementsByTagName("td");
+        let winPatterns = [
+            [0,1,2],[3,4,5],[6,7,8],
+            [0,3,6],[1,4,7],[2,5,8],
+            [0,4,8],[2,4,6]
+        ];
+
+        for (let pattern of winPatterns) {
+            let [a,b,c] = pattern;
+            if (cells[a].innerHTML &&
+                cells[a].innerHTML == cells[b].innerHTML &&
+                cells[a].innerHTML == cells[c].innerHTML) {
+                document.getElementById("result").innerHTML =
+                    cells[a].innerHTML + " Wins!";
+            }
+        }
+    }
+
+    function resetGame() {
+        let cells = document.getElementsByTagName("td");
+        for (let cell of cells) {
+            cell.innerHTML = "";
+        }
+        document.getElementById("result").innerHTML = "";
+        turn = "X";
+    }
+</script>
+
+</body>
+</html>
